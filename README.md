@@ -32,8 +32,6 @@ Build a robust Next.js application that showcases Next.js features while impleme
 
 ## <a name="features">❇️ Features</a>
 
-✅ **Modern Design with Glassmorphism Trend Style**: A modern and visually appealing design, incorporating the glassmorphism trend style for a sleek and contemporary appearance.
-
 ✅ **Discover and Share AI Prompts**: Allow users to discover AI prompts shared by the community and create their own prompts to share with the world.
 
 ✅ **Edit and Delete Created Prompts**: Users have the ability to edit their created prompts at any time and delete them when needed.
@@ -91,7 +89,7 @@ AUTH_GOOGLE_SECRET=
 MONGODB_URI=
 ```
 
-Replace the placeholders with your actual credentials obtained by signing up on the corresponding websites[Google Cloud Console](https://console.cloud.google.com/welcome?rapt=AEjHL4MBaLLneW6OfAHf_zgms1eWZFw1wdy0_KIC4uh1nEqh2m4ojOvrXNlzJ4h7CZTkpiWgcsoHbUvS-FMdCP7WIkaVlPAeU7cnVR6Y0wJHeLMOtU6KAzA&project=promptopia-385410), and [MongoDB](https://www.mongodb.com/). 
+Replace the placeholders with your actual credentials obtained by signing up on the corresponding websites; [Google Cloud Console](https://console.cloud.google.com/welcome?rapt=AEjHL4MBaLLneW6OfAHf_zgms1eWZFw1wdy0_KIC4uh1nEqh2m4ojOvrXNlzJ4h7CZTkpiWgcsoHbUvS-FMdCP7WIkaVlPAeU7cnVR6Y0wJHeLMOtU6KAzA&project=promptopia-385410) and [MongoDB](https://www.mongodb.com/). 
 
 **Running the Project**
 
