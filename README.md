@@ -48,9 +48,9 @@ Build a robust Next.js application that showcases Next.js features while impleme
 
 ✅ **Google Authentication using NextAuth**: Enable secure Google authentication using NextAuth, ensuring a streamlined and trustworthy login experience.
 
-✅ **Responsive Website**: Develop a fully responsive website to ensure optimal user experience across various devices, from desktops to smartphones
+✅ **Responsive Website**: Develop a fully responsive website to ensure optimal user experience across various devices, from desktops to smartphones.
 
-and many more, including code architecture and reusability 
+and many more, including code architecture and reusability.
 
 ## <a name="quick-start">👨‍💻 Quick Start</a>
 
