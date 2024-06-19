@@ -16,7 +16,7 @@
 
 1. ✏️ [Introduction](#introduction)
 2. 💻 [Technologies](#tech)
-3. 🧰 [Features](#features)
+3. ❇️ [Features](#features)
 4. 👨‍💻 [Quick Start](#quick-start)
 
 
@@ -30,7 +30,7 @@ Build a robust Next.js application that showcases Next.js features while impleme
 - NextAuth
 - TailwindCSS
 
-## <a name="features">🧰 Features</a>
+## <a name="features">❇️ Features</a>
 
 ✅ **Modern Design with Glassmorphism Trend Style**: A modern and visually appealing design, incorporating the glassmorphism trend style for a sleek and contemporary appearance.
 
