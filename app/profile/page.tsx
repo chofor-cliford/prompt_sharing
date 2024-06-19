@@ -1,8 +1,17 @@
+"use client";
 
-const Profile = () => {
+import Profile from "@/components/Profile";
+
+const UserProfile = () => {
   return (
-    <div>Profile</div>
+    <Profile
+      name="My"
+      desc="Welcome to your personalized profile page"
+      data={[]}
+      handleEdit={() => {}}
+      handleDelete={() => {}}
+    />
   )
 }
 
-export default Profile
+export default UserProfile;
