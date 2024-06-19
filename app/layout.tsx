@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Nav from "@/components/Nav";
+import Provider from "@/components/Provider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -20,13 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <div className="main">
-          <div className="gradient" />
-        </div>
+        <Provider session={""}>
+          <div className="main">
+            <div className="gradient" />
+          </div>
 
-        <main className="relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6">
-          {children}
-        </main>
+          <main className="relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6">
+            <Nav />
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );
