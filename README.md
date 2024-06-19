@@ -91,7 +91,7 @@ AUTH_GOOGLE_SECRET=
 MONGODB_URI=
 ```
 
-Replace the placeholders with your actual credentials obtained by signing up on the corresponding websites[Google Cloud Console](https://console.cloud.google.com/welcome?rapt=AEjHL4MBaLLneW6OfAHf_zgms1eWZFw1wdy0_KIC4uh1nEqh2m4ojOvrXNlzJ4h7CZTkpiWgcsoHbUvS-FMdCP7WIkaVlPAeU7cnVR6Y0wJHeLMOtU6KAzA&project=promptopia-385410), and [MongoDB](https://www.mongodb.com/). 
+Replace the placeholders with your actual credentials obtained by signing up on the corresponding websites [Google Cloud Console](https://console.cloud.google.com/welcome?rapt=AEjHL4MBaLLneW6OfAHf_zgms1eWZFw1wdy0_KIC4uh1nEqh2m4ojOvrXNlzJ4h7CZTkpiWgcsoHbUvS-FMdCP7WIkaVlPAeU7cnVR6Y0wJHeLMOtU6KAzA&project=promptopia-385410), and [MongoDB](https://www.mongodb.com/). 
 
 **Running the Project**
 
