@@ -1,4 +1,5 @@
-import { User } from "next-auth";
+import { Session } from 'next-auth';
+import React from 'react';
 
 declare type ProviderProps = {
   children: React.ReactNode;
@@ -41,14 +42,36 @@ declare type PromptCardData = {
 
 declare type PromptCardProps = {
   post: PromptCardData;
-  handleTagClick: (tag: string) => void;
-  handleDelete: (id: string) => void;
-  handleEdit: (id: string) => void;
+  handleTagClick: (tag: any) => void;
+  handleDelete: (post: any) => void;
+  handleEdit: (post: any) => void;
 }
 
 declare type PromptCardListProps = {
   data: PromptCardData[];
-  handleTagClick: (tag: string) => void;
-  handleDelete: (id: string) => void;
-  handleEdit: (id: string) => void;
+  handleTagClick?: (tag: any) => void | undefined;
+  handleDelete: (post: any) => void;
+  handleEdit: (post: any) => void;
+};
+
+declare type ProfileProps={
+  name: string;
+  desc: string;
+  data: PromptCardData[];
+  handleEdit: (post: any) => void;
+  handleDelete: (post: any) => void;
+}
+
+declare type GetPromptByIdProps = {
+  userId: string;
+};
+
+declare type UpdatePromptProps = {
+  tag: string;
+  prompt: string;
+  userId: string;
+};
+
+declare type DeletePromptProps = {
+  userId: string;
 };

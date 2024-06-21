@@ -1,7 +1,9 @@
 "use client";
 
 import { PromptCardProps } from "@/types";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const PromptCard = ({
@@ -11,6 +13,9 @@ const PromptCard = ({
   handleDelete,
 }: PromptCardProps) => {
   const [copied, setCopied] = useState("");
+  const pathName = usePathname();
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -29,6 +34,7 @@ const PromptCard = ({
             width={40}
             height={40}
             className="rounded-full object-contain"
+            onClick={() => router?.push("/profile")}
           />
 
           <div className="flex flex-col">
@@ -61,10 +67,27 @@ const PromptCard = ({
       <p className="my-4 font-stoshit text-sm text-gray-700">{post.prompt}</p>
       <p
         className="font-inter text-sm cursor-pointer bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent"
-        onClick={() => handleTagClick && handleTagClick(post.tag.split(",").map((tag) => tag.trim())[0])}
+        onClick={handleTagClick}
       >
         {post.tag}
       </p>
+
+      {session?.user?.id === post.creator._id && pathName === "/profile" && (
+        <div className="mt-5 flex items-center justify-center gap-4 border-t border-gray-100 pt-3">
+          <p
+            className="font-inter text-sm bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent cursor-pointer"
+            onClick={handleEdit}
+          >
+            Edit
+          </p>
+          <p
+            className="font-inter text-sm bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent cursor-pointer"
+            onClick={handleDelete}
+          >
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   );
 };

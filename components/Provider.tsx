@@ -1,5 +1,6 @@
 "use client";
 
+import { ProviderProps } from "@/types";
 import { SessionProvider } from "next-auth/react";
 
 const Provider = ({
