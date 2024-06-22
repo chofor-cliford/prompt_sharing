@@ -11,7 +11,7 @@ export default function GlobalError({
 }) {
   return (
     <html>
-      <body className="bg-black flex flex-col gap-4 justify-center">
+      <body className="bg-black flex flex-col w-full h-full gap-2 items-center justify-center">
         <h2
           className="text-white mt-5 text-5xl font-extrabold leading-[1.15]
 sm:text-6xl"
