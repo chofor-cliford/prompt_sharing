@@ -3,8 +3,9 @@
 import Form from "@/components/Form";
 import { useToast } from "@/components/ui/use-toast";
 import { getPrompt, updatePrompt } from "@/lib/actions/prompt.actions";
+import { LoaderPinwheelIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
 const EditPrompt = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -68,4 +69,12 @@ const EditPrompt = () => {
   );
 };
 
-export default EditPrompt;
+const EditPromptWithSuspense = () => (
+  <Suspense fallback={<LoaderPinwheelIcon />}>
+    <EditPrompt />
+  </Suspense>
+);
+
+export default EditPromptWithSuspense;
+
+
