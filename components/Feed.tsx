@@ -1,48 +1,35 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
 import PromptCardList from "./PromptCardList";
-import { getPrompts } from "@/lib/actions/prompt.actions";
-import { PromptCardData } from "@/types";
+import { FeedProps, PromptCardData } from "@/types";
+import { Search } from "./Search";
+import { useState } from "react";
 
-const Feed = () => {
-  const [searchText, setSearchText] = useState("");
-  const [posts, setPosts] = useState<PromptCardData[]>([]);
+const Feed = ({ postsData: allPosts, page, totalPages, hasSearch }: FeedProps) => {
+  const [posts, setPosts] = useState <PromptCardData[] | undefined>(allPosts);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const handleTagClick = (tag: string) => {
+    const tags = tag.split(",").map((t) => t.trim());
 
-  useEffect(() => {
-    // Fetch posts
-    const fetchPosts = async () => {
-    const data = await getPrompts();
-
-    setPosts(data);
-    }
-
-    fetchPosts();
-  }, [])
+    // search for posts with the same tag
+    const filteredPosts = allPosts?.filter((post) => {
+      const postTags = post.tag.split(",").map((t) => t.trim());
+      return tags.some((tag) => postTags.includes(tag));
+    });
+  
+    setPosts(filteredPosts);
+  };
 
   return (
     <section className="mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2">
-      <form
-        action=""
-        className="relative w-full flex justify-center items-center"
-      >
-        <input
-          type="text"
-          placeholder="Search for anything"
-          value={searchText}
-          onChange={handleSearchChange}
-          className="block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-5 pr-12 text-sm shadow-lg font-satoshi-medium focus:border-black focus:outline-none focus:ring-0 peer"
-          required
-        />
-      </form>
+      {hasSearch && <Search />}
 
       <PromptCardList
+        hasSearch={hasSearch}
+        totalPages={totalPages}
+        page={page}
         data={posts}
-        handleTagClick={() => {}}      
-        handleEdit={() => {}}
-        handleDelete={() => {}}
+        handleTagClick={handleTagClick}
       />
     </section>
   );

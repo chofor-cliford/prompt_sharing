@@ -6,9 +6,13 @@ import Prompt from "../models/prompt.model";
 import {
   CreatePromptProps,
   DeletePromptProps,
+  GetAllPromptsProps,
   GetPromptByIdProps,
+  GetPromptProps,
+  PromptCardData,
   UpdatePromptProps,
 } from "@/types";
+import { FilterQuery } from "mongoose";
 
 export const createNewPrompt = async ({
   prompt,
@@ -28,33 +32,40 @@ export const createNewPrompt = async ({
   }
 };
 
-export const getPrompts = async () => {
+export const getPromptById = async ({
+  userId,
+  limit = 6,
+  page = 1,
+}: GetPromptByIdProps) => {
   try {
-    connectToDatabase();
+    connectToDatabase(); // Ensure the database connection is awaited.
 
-    // Get all prompts and populate the creator field
-    const prompts = await Prompt.find({}).populate("creator");
+    const skipAmount = (Number(page) - 1) * limit;
 
-    return parseStringify(prompts);
+    // Query to count total prompts for the given userId
+    const totalPrompts = await Prompt.countDocuments({ creator: userId });
+
+    // Get prompts for the given userId and populate the creator field
+    const prompts = await Prompt.find({ creator: userId })
+      .sort({ updatedAt: -1 })
+      .skip(skipAmount)
+      .limit(limit)
+      .populate("creator");
+
+    // Calculate total pages based on total prompts and pagination limit
+    const totalPages = Math.ceil(totalPrompts / limit);
+
+    // Return prompts data along with total pages
+    return {
+      data: JSON.parse(JSON.stringify(prompts)),
+      totalPages,
+    };
   } catch (error: any) {
     throw new Error(`Failed to get prompts: ${error.message}`);
   }
 };
 
-export const getPromptById = async ({userId}: GetPromptByIdProps) => {
-  try {
-    connectToDatabase();
-
-    // Get all prompts and populate the creator field
-    const prompts = await Prompt.find({ creator: userId }).populate("creator");
-
-    return parseStringify(prompts);
-  } catch (error: any) {
-    throw new Error(`Failed to get prompts: ${error.message}`);
-  }
-};
-
-export const getPrompt = async ({ userId }: GetPromptByIdProps) => {
+export const getPrompt = async ({ userId }: GetPromptProps) => {
   try {
     connectToDatabase();
 
@@ -98,7 +109,7 @@ export const updatePrompt = async ({
   }
 };
 
-export const deletePrompt = async ({userId}: DeletePromptProps) => {
+export const deletePrompt = async ({ userId }: DeletePromptProps) => {
   try {
     connectToDatabase();
 
@@ -108,5 +119,51 @@ export const deletePrompt = async ({userId}: DeletePromptProps) => {
     return parseStringify({ message: "Prompt deleted successfully" });
   } catch (error: any) {
     throw new Error(`Failed to delete the prompts: ${error.message}`);
+  }
+};
+
+export const getAllPrompts = async ({
+  limit = 6,
+  page = 1,
+  searchQuery = "",
+}: GetAllPromptsProps) => {
+  try {
+    connectToDatabase(); // Ensure the database connection is awaited.
+
+    const skipAmount = (Number(page) - 1) * limit;
+    const regex = new RegExp(searchQuery, "i"); // Case-insensitive regular expression.
+    const query: FilterQuery<PromptCardData> = {};
+
+    if (searchQuery.trim() !== "") {
+      query.$or = [
+        { prompt: { $regex: regex } },
+        { tag: { $regex: regex } },
+        { "creator.username": { $regex: regex } },
+        { "creator.email": { $regex: regex } },
+      ];
+    }
+
+    // Create a query to fetch the prompts based on the search and sort criteria.
+    const promptsQuery = Prompt.find(query)
+      .sort({ updatedAt: -1 })
+      .skip(skipAmount)
+      .limit(limit)
+      .populate({
+        path: "creator",
+        select: "username email image _id",
+      });
+
+    // Execute the query and return the results.
+    const totalPrompts = await Prompt.countDocuments(query);
+    const prompts = await promptsQuery.exec();
+    const savedPrompts = await Prompt.countDocuments();
+
+    return {
+      data: JSON.parse(JSON.stringify(prompts)),
+      totalPages: Math.ceil(totalPrompts / limit),
+      savedPrompts,
+    };
+  } catch (error: any) {
+    throw new Error(`Failed to fetch prompts: ${error.message}`);
   }
 };

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Provider from "@/components/Provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <Provider session={""}>
+        <Provider session={null}>
           <div className="main">
             <div className="gradient" />
           </div>
@@ -31,6 +32,8 @@ export default function RootLayout({
             <Nav />
             {children}
           </main>
+
+          <Toaster />
         </Provider>
       </body>
     </html>

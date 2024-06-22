@@ -1,13 +1,19 @@
 import { ProfileProps } from "@/types";
 import PromptCard from "./PromptCard";
+import PromptCardList from "./PromptCardList";
 
 const Profile = ({
   name,
   desc,
   data,
+  hasSearch,
+  totalPages,
+  page,
   handleEdit,
   handleDelete,
+  handleTagClick,
 }: ProfileProps) => {
+
   return (
     <section className="w-full">
       <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl text-left">
@@ -21,17 +27,15 @@ const Profile = ({
         {desc}
       </p>
 
-      <div className="mt-10 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
-        {data.map((post) => (
-          <PromptCard
-            key={post._id}
-            post={post}
-            handleTagClick={() => {}}
-            handleDelete={() => handleDelete(post)}
-            handleEdit={() => handleEdit(post)}
-          />
-        ))}
-      </div>
+      <PromptCardList
+        hasSearch={hasSearch}
+        totalPages={totalPages}
+        page={page}
+        data={data}
+        handleTagClick={handleTagClick}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
     </section>
   );
 };

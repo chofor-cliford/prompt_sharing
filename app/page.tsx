@@ -1,6 +1,12 @@
 import Feed from "@/components/Feed";
+import { getAllPrompts } from "@/lib/actions/prompt.actions";
+import { SearchParamProps } from "@/types";
 
-const Home = () => {
+const Home = async({ searchParams }: SearchParamProps) => {
+  const page = Number(searchParams?.page) || 1;
+  const searchQuery = (searchParams?.query as string) || "";
+
+  const prompts = await getAllPrompts({ page, searchQuery });
   return (
     <section className="w-full flex-center flex-col">
       <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl text-center">
@@ -16,7 +22,12 @@ const Home = () => {
         others.
       </p>
 
-      <Feed />
+      <Feed
+        hasSearch={true}
+        postsData={prompts?.data}
+        totalPages={prompts?.totalPages}
+        page={page}
+      />
     </section>
   );
 };
