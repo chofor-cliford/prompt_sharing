@@ -1,12 +1,13 @@
 "use client";
 
+import React, { Suspense, useEffect, useState } from "react";
 import Profile from "@/components/Profile";
 import { useToast } from "@/components/ui/use-toast";
 import { deletePrompt, getPromptById } from "@/lib/actions/prompt.actions";
 import { PostsProps, PromptCardData } from "@/types";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { LoaderPinwheelIcon } from "lucide-react";
 
 const UserProfile = () => {
   const searchParams = useSearchParams();
@@ -38,7 +39,7 @@ const UserProfile = () => {
     };
 
     fetchPosts();
-  }, [session?.user?.id, page,]);
+  }, [session?.user?.id, page, posts]);
 
   const handleEdit = (post: PromptCardData) => {
     router.push(`/update-prompt?id=${post._id}`);
@@ -91,4 +92,10 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+const UserProfileWithSuspense = () => (
+  <Suspense fallback={<LoaderPinwheelIcon />}>
+    <UserProfile />
+  </Suspense>
+);
+
+export default UserProfileWithSuspense;
