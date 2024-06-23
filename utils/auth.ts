@@ -21,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       // Ensure that there is a user and that the user has an email
-      if (session?.user?.email) {
+      if (session.user.email) {
         await connectToDatabase();
 
         // Fetch the user from the database
