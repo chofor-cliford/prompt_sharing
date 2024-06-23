@@ -20,7 +20,11 @@ export const connectToDatabase = async () => {
   try {
     await mongoose.connect(MONGODB_URI, {
       dbName: "prompt_share",
-    });
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      socketTimeoutMS: 45000, // Increase the socket timeout to 45 seconds
+      connectTimeoutMS: 30000, // Increase the connection timeout to 30 seconds
+    } as any);
 
     isConnected = true;
     console.log("=> new database connection");
