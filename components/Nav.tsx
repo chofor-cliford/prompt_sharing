@@ -19,7 +19,7 @@ const Nav = () => {
     };
 
     fetchProviders();
-  }, [providers]);
+  }, []);
 
   return (
     <nav className="flex justify-between items-center w-full mb-16 pt-3">
