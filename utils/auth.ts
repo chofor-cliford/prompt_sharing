@@ -3,7 +3,6 @@ import Google from "next-auth/providers/google";
 import { connectToDatabase } from "./db";
 import User from "@/lib/models/user.model";
 
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
@@ -16,9 +15,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async session({ session, token }) {
-      const sessionUser = await User.findOne({ email: session?.user?.email });
+      // Check if session has a user, if not, return session immediately
+      if (!session?.user) {
+        return session;
+      }
 
-      session.user.id = sessionUser?._id.toString() || token.id;
+      // Ensure that there is a user and that the user has an email
+      if (session.user.email) {
+        await connectToDatabase();
+
+        // Fetch the user from the database
+        const sessionUser = await User.findOne({ email: session.user.email });
+
+        // Assign the user ID to the session
+        session.user.id = sessionUser?._id.toString() || token.id;
+      }
 
       return session;
     },
