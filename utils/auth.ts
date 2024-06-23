@@ -20,16 +20,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return session;
       }
 
-      // Ensure that there is a user and that the user has an email
-      if (session.user.email) {
         await connectToDatabase();
 
         // Fetch the user from the database
-        const sessionUser = await User.findOne({ email: session.user.email });
+        const sessionUser = await User.findOne({ email: session?.user?.email });
 
         // Assign the user ID to the session
         session.user.id = sessionUser?._id.toString() || token.id;
-      }
 
       return session;
     },
