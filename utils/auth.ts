@@ -3,7 +3,6 @@ import Google from "next-auth/providers/google";
 import { connectToDatabase } from "./db";
 import User from "@/lib/models/user.model";
 
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {

@@ -128,7 +128,7 @@ export const getAllPrompts = async ({
   searchQuery = "",
 }: GetAllPromptsProps) => {
   try {
-    connectToDatabase(); // Ensure the database connection is awaited.
+    connectToDatabase(); 
 
     const skipAmount = (Number(page) - 1) * limit;
     const regex = new RegExp(searchQuery, "i"); // Case-insensitive regular expression.

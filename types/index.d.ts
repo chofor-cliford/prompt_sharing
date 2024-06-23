@@ -138,3 +138,10 @@ declare type PostsProps = {
   data: PromptCardData[] | undefined;
   totalPages: number;
 };
+
+declare type PromptProps = {
+  data: PromptCardData[];
+  totalPages: number;
+  savedPrompts?: number;
+};
+

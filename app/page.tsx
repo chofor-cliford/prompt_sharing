@@ -1,8 +1,13 @@
 import Feed from "@/components/Feed";
 import { getAllPrompts } from "@/lib/actions/prompt.actions";
 import { SearchParamProps } from "@/types";
+import { auth } from "@/utils/auth";
 
-const Home = async({ searchParams }: SearchParamProps) => {
+const Home = async ({ searchParams }: SearchParamProps) => {
+  const session = await auth();
+
+  if (!session?.user) return null;
+
   const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || "";
 
