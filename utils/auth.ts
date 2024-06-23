@@ -3,13 +3,22 @@ import Google from "next-auth/providers/google";
 import { connectToDatabase } from "./db";
 import User from "@/lib/models/user.model";
 
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
-    async session({ session }) {
+    async jwt({ token, user }) {
+      if (user) {
+        // User is available during sign-in
+        token.id = user.id;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
       const sessionUser = await User.findOne({ email: session?.user?.email });
 
-      session.user.id = sessionUser?._id.toString();
+      session.user.id = sessionUser?._id.toString() || token.id;
 
       return session;
     },
