@@ -29,7 +29,7 @@ Build a robust Next.js application that showcases Next.js features while impleme
 - NextAuth
 - TailwindCSS
 
-## <a name="features">❇🎨 Features</a>
+## <a name="features">🎨 Features</a>
 
 ✔️ **Prompt Search with Pagination**: Effortlessly explore and discover prompts and users with advanced search and smooth pagination.
 
