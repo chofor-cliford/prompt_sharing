@@ -70,7 +70,13 @@ const Nav = () => {
                 <button
                   type="button"
                   key={provider.id}
-                  onClick={() => signIn(provider.id)}
+                  onClick={() =>
+                    signIn(
+                      provider.id,
+                      { callbackUrl: "", redirect: true },
+                      { prompt: "none" }
+                    )
+                  }
                   className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
                 >
                   Sign In
@@ -130,7 +136,13 @@ const Nav = () => {
                 <button
                   type="button"
                   key={provider.id}
-                  onClick={() => signIn(provider.id, { callbackUrl: '', redirect: true }, { prompt: "none" })}
+                  onClick={() =>
+                    signIn(
+                      provider.id,
+                      { callbackUrl: "", redirect: true },
+                      { prompt: "none" }
+                    )
+                  }
                   className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
                 >
                   Sign In
